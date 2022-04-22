@@ -1,20 +1,24 @@
 import React from 'react';
 import { Button, makeStyles, TextField } from '@material-ui/core';
+import Header from '../../components/Header/Header';
 
 const Login = () => {
   const { container, title, form, field, button } = useStyles();
 
   return (
-    <div className={container}>
-      <div className={title}>Login</div>
-      <div className={form}>
-        <TextField className={field} id="text-field-email" variant="outlined" label="E-mail" />
-        <TextField className={field} id="text-field-password" variant="outlined" label="Senha" />
+    <>
+      <Header />
+      <div className={container}>
+        <div className={title}>Login</div>
+        <div className={form}>
+          <TextField className={field} id="text-field-email" variant="outlined" label="E-mail" />
+          <TextField className={field} id="text-field-password" variant="outlined" label="Senha" />
+        </div>
+        <div className={button}>
+          <Button variant="contained">Entrar</Button>
+        </div>
       </div>
-      <div className={button}>
-        <Button variant="contained">Login</Button>
-      </div>
-    </div>
+    </>
   );
 };
 

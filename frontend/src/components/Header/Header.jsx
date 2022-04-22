@@ -10,7 +10,7 @@ const Header = () => {
     <div className={container}>
       <div className={title}>Pizzaria</div>
       <div className={buttons}>
-        <Button variant="contained" onClick={() => { navigate('/login') }}>Entrar</Button>
+        <Button variant="contained" onClick={() => { navigate('/login') }}>Login</Button>
         <Button variant="contained" onClick={() => { navigate('/register') }}>Cadastrar</Button>
       </div>
     </div>
