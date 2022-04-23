@@ -5,7 +5,7 @@ const useHttp = (defaultData = {}) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(defaultData);
 
-  const sendRequest = useCallback(async (requestConfig, applyData = () => { }) => {
+  const sendRequest = useCallback(async (requestConfig, applyData = data => data) => {
     setLoading(true);
     setError(null);
     try {
