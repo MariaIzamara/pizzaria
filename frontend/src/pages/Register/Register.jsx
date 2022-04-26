@@ -1,43 +1,67 @@
 import React, { useState } from 'react';
 import { useHttp } from '../../hooks';
 import { Button, makeStyles, MenuItem, TextField } from '@material-ui/core';
-import { requestConfigHello as requestConfig } from '../../Utils/requestsConfigs';
+import { requestConfigRegister, requestConfigAddress } from '../../Utils/requestsConfigs';
 import Header from '../../components/Header/Header';
 
 // posteriormente esses bairros serão trazidos do banco de dados;
 const districts = [
   {
-    value: 'NA',
-    label: 'Selecione',
+    key: 'NA',
+    value: 'Selecione',
   },
   {
-    value: 'NG',
-    label: 'Nova Gameleira',
+    key: 'NG',
+    value: 'Nova Gameleira',
   },
   {
-    value: 'NS',
-    label: 'Nova Suiça',
+    key: 'NS',
+    value: 'Nova Suiça',
   },
   {
-    value: 'C',
-    label: 'Centro',
+    key: 'C',
+    value: 'Centro',
   },
   {
-    value: 'S',
-    label: 'Savassi',
+    key: 'S',
+    value: 'Savassi',
   },
 ];
 
 const Register = () => {
-  const { container, title, form, personalData, address, field, button } = useStyles();
+  const { container, title, form, personal, address, field, button } = useStyles();
 
   const { loading, error, data, sendRequest } = useHttp('');
+  // console.log({ loading, error, data });
 
   const [district, setDistrict] = useState(districts[0].value);
+  const [personalData, setPersonalData] = useState({
+    name: '',
+    cpf: '',
+    email: '',
+    phone: '',
+    password: '',
+  });
+  const [addressData, setAddressData] = useState({
+    cep: '',
+    district: '',
+    street: '',
+    number: '',
+    complement: '',
+  });
 
-  const registerUser = () => {
-    sendRequest(requestConfig);
-  };
+  const registerUser = () => sendRequest(requestConfigAddress(addressData)); // sendRequest(requestConfigRegister(personalData));
+
+  const handleChange = (event, field, type = 'personal') => type === 'address' ?
+    setAddressData(currentAddressData => ({
+      ...currentAddressData,
+      [field]: event.target.value,
+    }))
+    :
+    setPersonalData(currentPersonalData => ({
+      ...currentPersonalData,
+      [field]: event.target.value,
+    }))
 
   return (
     <>
@@ -45,31 +69,35 @@ const Register = () => {
       <div className={container}>
         <div className={title}>Cadastro</div>
         <div className={form}>
-          <div className={personalData}>
-            <TextField className={field} id="text-field-name" variant="outlined" label="Nome" />
-            <TextField className={field} id="text-field-cpf" variant="outlined" label="CPF" />
-            <TextField className={field} id="text-field-email" variant="outlined" label="E-mail" />
-            <TextField className={field} id="text-field-telephone" variant="outlined" label="Telefone" />
+          <div className={personal}>
+            <TextField className={field} id="text-field-name" variant="outlined" label="Nome" onChange={event => handleChange(event, 'name')} />
+            <TextField className={field} id="text-field-cpf" variant="outlined" label="CPF" onChange={event => handleChange(event, 'cpf')} />
+            <TextField className={field} id="text-field-email" variant="outlined" label="E-mail" onChange={event => handleChange(event, 'email')} />
+            <TextField className={field} id="text-field-phone" variant="outlined" label="Celular" onChange={event => handleChange(event, 'phone')} />
+            <TextField className={field} id="text-field-password" variant="outlined" label="Senha" onChange={event => handleChange(event, 'password')} />
           </div>
           <div className={address}>
-            <TextField className={field} id="text-field-cep" variant="outlined" label="CEP" helperText="Somente são permitidos endereços na cidade de Belo Horizonte" />
+            <TextField className={field} id="text-field-cep" variant="outlined" label="CEP" helperText="Somente são permitidos endereços na cidade de Belo Horizonte" onChange={event => handleChange(event, 'cep', 'address')} />
             <TextField
               select
               id="select-district"
               variant="outlined"
               label="Bairro"
               value={district}
-              onChange={e => setDistrict(e.target.value)}
+              onChange={event => {
+                setDistrict(event.target.value);
+                handleChange(event, 'district', 'address')
+              }}
             >
               {districts.map(d => (
-                <MenuItem key={d.value} value={d.value}>
-                  {d.label}
+                <MenuItem key={d.key} value={d.value}>
+                  {d.value}
                 </MenuItem>
               ))}
             </TextField>
-            <TextField className={field} id="text-field-street" variant="outlined" label="Rua" />
-            <TextField className={field} id="text-field-number" variant="outlined" label="Número" />
-            <TextField className={field} id="text-field-complement" variant="outlined" label="Complemento" />
+            <TextField className={field} id="text-field-street" variant="outlined" label="Rua" onChange={event => handleChange(event, 'street', 'address')} />
+            <TextField className={field} id="text-field-number" variant="outlined" label="Número" onChange={event => handleChange(event, 'number', 'address')} />
+            <TextField className={field} id="text-field-complement" variant="outlined" label="Complemento" onChange={event => handleChange(event, 'complement', 'address')} />
           </div>
         </div>
         <div className={button}>
@@ -93,7 +121,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
   },
-  personalData: {
+  personal: {
     padding: 16,
     marginBottom: 24,
     border: 'solid 1px gray',
