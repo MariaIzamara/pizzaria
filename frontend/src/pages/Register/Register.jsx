@@ -65,7 +65,7 @@ const Register = () => {
 
   return (
     <>
-      <Header />
+      <Header registerDisabled={true} />
       <div className={container}>
         <div className={title}>Cadastro</div>
         <div className={form}>

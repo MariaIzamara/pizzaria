@@ -7,7 +7,7 @@ const Login = () => {
 
   return (
     <>
-      <Header />
+      <Header loginDisabled={true} />
       <div className={container}>
         <div className={title}>Login</div>
         <div className={form}>
