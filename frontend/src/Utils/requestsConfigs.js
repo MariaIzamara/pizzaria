@@ -4,13 +4,11 @@ export const requestConfigHello = {
   url: `${baseUrl}/hello`,
 };
 
-export const requestConfigRegister = personalData => {
-  const { name, cpf, email, phone, password } = personalData;
+export const requestConfigRegister = data => {
+  const { name, cpf, email, phone, password } = data;
   return {
     method: 'POST',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
+    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
     url: `${baseUrl}/cliente/novo`,
     body: {
       nome: name,
@@ -22,8 +20,8 @@ export const requestConfigRegister = personalData => {
   };
 };
 
-export const requestConfigAddress = address => {
-  const { cep, district, street, number, complement } = address;
+export const requestConfigAddress = data => {
+  const { cep, district, street, number, complement } = data;
   return {
     method: 'POST',
     headers: {
@@ -37,6 +35,19 @@ export const requestConfigAddress = address => {
       rua: street,
       numero: parseInt(number),
       complemento: complement,
+    },
+  };
+};
+
+export const requestConfigLogin = data => {
+  const { email, password } = data;
+  return {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+    url: `${baseUrl}/cliente/login`,
+    body: {
+      email: email,
+      senha: password,
     },
   };
 };

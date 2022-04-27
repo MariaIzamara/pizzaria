@@ -50,7 +50,7 @@ const Register = () => {
     complement: '',
   });
 
-  const registerUser = () => sendRequest(requestConfigAddress(addressData)); // sendRequest(requestConfigRegister(personalData));
+  const register = () => sendRequest(requestConfigRegister(personalData)); //sendRequest(requestConfigAddress(addressData));
 
   const handleChange = (event, field, type = 'personal') => type === 'address' ?
     setAddressData(currentAddressData => ({
@@ -61,7 +61,7 @@ const Register = () => {
     setPersonalData(currentPersonalData => ({
       ...currentPersonalData,
       [field]: event.target.value,
-    }))
+    }));
 
   return (
     <>
@@ -101,7 +101,7 @@ const Register = () => {
           </div>
         </div>
         <div className={button}>
-          <Button variant="contained" onClick={() => registerUser()}>Cadastrar</Button>
+          <Button variant="contained" onClick={() => register()}>Cadastrar</Button>
         </div>
       </div>
     </>
