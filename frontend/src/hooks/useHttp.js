@@ -6,10 +6,12 @@ const useHttp = (defaultData = {}) => {
   const [data, setData] = useState(defaultData);
 
   const sendRequest = useCallback(async (requestConfig, applyData = data => data) => {
+    console.log(requestConfig, applyData);
     setLoading(true);
     setError(null);
     try {
       const response = await fetch(requestConfig.url, {
+        mode: 'no-cors',
         method: requestConfig.method ? requestConfig.method : 'GET',
         headers: requestConfig.headers ? requestConfig.headers : {},
         body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
