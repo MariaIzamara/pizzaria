@@ -29,12 +29,12 @@ const MenuSection = (props) => {
         console.log(data)
         for(const item in data) {
             loadedItems.push ({
-            "id": data[item].id,
-            "tipo": data[item].tipo,
-            "nome": data[item].nome,
-            "descricao": data[item].descricao,
-            "preco": data[item].preco,
-            "imagem": data[item].imagem,
+            "id": data.rows[item].id,
+            "tipo": data.rows[item].tipo,
+            "nome": data.rows[item].nome,
+            "descricao": data.rows[item].descricao,
+            "preco": data.rows[item].preco,
+            "imagem": data.rows[item].imagem,
             })
         }
         console.log(loadedItems)

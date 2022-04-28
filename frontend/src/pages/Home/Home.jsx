@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
-import FoodMenu from '../../components/Header/FoodMenu';
+import FoodMenu from '../../components/FoodMenu/FoodMenu';
 import Header from '../../components/Header/Header';
 
 const Home = () => {
