@@ -38,7 +38,6 @@ const MenuSection = (props) => {
             })
         }
         setItems(loadedItems)
-        console.log(items)
     }, [data])
 
     const itemsList = items.map((item) => (
