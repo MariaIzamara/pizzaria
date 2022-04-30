@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useHttp } from '../../hooks';
-import { Button, makeStyles, MenuItem, TextField } from '@material-ui/core';
+import { makeStyles, Button, MenuItem, TextField } from '@material-ui/core';
 import { requestConfigRegister, requestConfigAddress } from '../../Utils/requestsConfigs';
 import Header from '../../components/Header/Header';
 
-// posteriormente esses bairros serão trazidos do banco de dados;
 const districts = [
   {
     key: 'NA',
@@ -30,6 +30,7 @@ const districts = [
 
 const Register = () => {
   const { container, title, form, personal, address, field, button } = useStyles();
+  const navigate = useNavigate();
 
   const { loading, error, data, sendRequest } = useHttp('');
   // console.log({ loading, error, data });
@@ -50,7 +51,14 @@ const Register = () => {
     complement: '',
   });
 
-  const register = () => sendRequest(requestConfigRegister(personalData)); //sendRequest(requestConfigAddress(addressData));
+  useEffect(() => {
+    if(data && data.token) {
+      sendRequest(requestConfigAddress(data.token, addressData));
+      navigate(`/${data.token}`);
+    }
+  }, [data]);
+
+  const register = () => sendRequest(requestConfigRegister(personalData));
 
   const handleChange = (event, field, type = 'personal') => type === 'address' ?
     setAddressData(currentAddressData => ({

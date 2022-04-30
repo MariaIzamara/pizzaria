@@ -20,12 +20,12 @@ export const requestConfigRegister = data => {
   };
 };
 
-export const requestConfigAddress = data => {
+export const requestConfigAddress = (token, data) => {
   const { cep, district, street, number, complement } = data;
   return {
     method: 'POST',
     headers: {
-      'Authorization': '-',
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json; charset=UTF-8',
     },
     url: `${baseUrl}/endereco/novo`,

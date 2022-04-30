@@ -1,19 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
 
 const Header = ({ loginDisabled, registerDisabled }) => {
   const { container, title, buttons } = useStyles();
+  const { token } = useParams();
   const navigate = useNavigate();
 
   return (
     <div className={container}>
       <div className={title}>Pizzaria</div>
-      <div className={buttons}>
-        <Button variant="contained" disabled={loginDisabled} onClick={() => { navigate('/login') }}>Login</Button>
-        <Button variant="contained" disabled={registerDisabled} onClick={() => { navigate('/register') }}>Cadastrar</Button>
-      </div>
+      {token ?
+        <>
+          <Button variant="contained" onClick={() => { navigate('/') }}>Sair</Button>
+        </> :
+        <>
+          <div className={buttons}>
+            <Button variant="contained" disabled={loginDisabled} onClick={() => { navigate('/login') }}>Login</Button>
+            <Button variant="contained" disabled={registerDisabled} onClick={() => { navigate('/register') }}>Cadastrar</Button>
+          </div>
+        </>
+      }
     </div>
   );
 };
