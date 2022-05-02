@@ -13,7 +13,6 @@ const Login = () => {
   // console.log({ loading, error, data });
 
   useEffect(() => {
-    console.log('aqui', data);
     if(data && data.token)
       navigate(`/${data.token}`);
   }, [data]);
