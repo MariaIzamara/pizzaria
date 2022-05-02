@@ -9,7 +9,7 @@ const Header = ({ loginDisabled, registerDisabled }) => {
 
   return (
     <div className={container}>
-      <div className={title}>Pizzaria</div>
+      <div className={title} onClick={() => { navigate('/') }}>Pizzaria</div>
       <div className={buttons}>
         <Button variant="contained" disabled={loginDisabled} onClick={() => { navigate('/login') }}>Login</Button>
         <Button variant="contained" disabled={registerDisabled} onClick={() => { navigate('/register') }}>Cadastrar</Button>

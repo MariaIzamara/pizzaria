@@ -51,3 +51,15 @@ export const requestConfigLogin = data => {
     },
   };
 };
+
+export const requestConfigPromotions = {
+  url: `${baseUrl}/produto/promoção`,
+};
+
+export const requestConfigFoods = {
+  url: `${baseUrl}/produto/comida`,
+};
+
+export const requestConfigDrinks = {
+  url: `${baseUrl}/produto/bebida`,
+};
