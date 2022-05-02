@@ -10,7 +10,7 @@ const Header = ({ loginDisabled, registerDisabled }) => {
 
   return (
     <div className={container}>
-      <div className={title}>Pizzaria</div>
+      <div className={title} onClick={() => { navigate('/') }}>Pizzaria</div>
       {token ?
         <>
           <Button variant="contained" onClick={() => { navigate('/') }}>Sair</Button>
