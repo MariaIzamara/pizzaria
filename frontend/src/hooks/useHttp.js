@@ -1,33 +1,36 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 const useHttp = (defaultData = {}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(defaultData);
 
-  const sendRequest = useCallback(async (requestConfig, applyData = data => data) => {
-    console.log(requestConfig, applyData);
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(requestConfig.url, {
-        mode: 'no-cors',
-        method: requestConfig.method ? requestConfig.method : 'GET',
-        headers: requestConfig.headers ? requestConfig.headers : {},
-        body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
-      });
+  const sendRequest = useCallback(
+    async (requestConfig, applyData = (data) => data) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const {url, method, headers, body } = requestConfig;
+        
+        const response = await fetch(url, {
+          method: method ? method : "GET",
+          headers: headers ? headers : {},
+          body: body ? JSON.stringify(body) : null,
+        });
 
-      if (!response.ok) {
-        throw new Error('Request failed!');
+        if (!response.ok) {
+          throw new Error("Request failed!");
+        }
+
+        const data = await response.json();
+        setData(applyData(data));
+      } catch (err) {
+        setError(err.message || "Something went wrong!");
       }
-
-      const data = await response.json();
-      setData(applyData(data));
-    } catch (err) {
-      setError(err.message || 'Something went wrong!');
-    }
-    setLoading(false);
-  }, []);
+      setLoading(false);
+    },
+    []
+  );
 
   return {
     loading,

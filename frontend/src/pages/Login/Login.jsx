@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useHttp } from '../../hooks';
-import { Button, makeStyles, TextField } from '@material-ui/core';
+import { makeStyles, Button, TextField, CircularProgress } from '@material-ui/core';
 import { requestConfigLogin } from '../../Utils/requestsConfigs';
 import Header from '../../components/Header/Header';
 
 const Login = () => {
   const { container, title, form, field, button } = useStyles();
+  const navigate = useNavigate();
 
   const { loading, error, data, sendRequest } = useHttp('');
   // console.log({ loading, error, data });
+
+  useEffect(() => {
+    if(data && data.token)
+      navigate(`/${data.token}`);
+  }, [data]);
 
   const [loginData, setLoginData] = useState({
     email: '',
@@ -27,14 +34,18 @@ const Login = () => {
     <>
       <Header loginDisabled={true} />
       <div className={container}>
-        <div className={title}>Login</div>
-        <div className={form}>
-          <TextField className={field} id="text-field-email" variant="outlined" label="E-mail" onChange={event => handleChange(event, 'email')} />
-          <TextField className={field} id="text-field-password" variant="outlined" label="Senha" onChange={event => handleChange(event, 'password')} />
-        </div>
-        <div className={button}>
-          <Button variant="contained" onClick={() => login()}>Entrar</Button>
-        </div>
+        {loading ? <CircularProgress /> :
+          <>
+            <div className={title}>Login</div>
+            <div className={form}>
+              <TextField className={field} id="text-field-email" variant="outlined" label="E-mail" onChange={event => handleChange(event, 'email')} />
+              <TextField className={field} id="text-field-password" variant="outlined" label="Senha" onChange={event => handleChange(event, 'password')} />
+            </div>
+            <div className={button}>
+              <Button variant="contained" onClick={() => login()}>Entrar</Button>
+            </div>
+          </>
+        }
       </div>
     </>
   );
