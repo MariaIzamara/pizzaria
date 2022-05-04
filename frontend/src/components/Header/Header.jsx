@@ -4,21 +4,26 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
 import { primary, gray200 } from '../../Utils/colors'
 
-const Header = ({ loginDisabled, registerDisabled }) => {
+const Header = ({ homeConfig, loginDisabled, registerDisabled }) => {
   const { containerHeader, logo, title, buttons, button } = useStyles();
   const { token } = useParams();
   const navigate = useNavigate();
 
   return (
     <div className={containerHeader}>
-      <div className={logo} onClick={() => { navigate('/') }}>
-        <img alt="Logo da pizzaria" src="iconepizzaria.png" height="32" width="32" />
-        <div className={title}>Pizzaria</div>
-      </div>
+      {homeConfig ?
+        <div></div>
+        :
+        <div className={logo} onClick={() => { navigate('/') }}>
+          <img alt="Logo da pizzaria" src="iconepizzaria.png" height="32" width="32" />
+          <div className={title}>Pizzaria</div>
+        </div>
+      }
       {token ?
         <>
           <Button variant="contained" onClick={() => { navigate('/') }}>Sair</Button>
-        </> :
+        </>
+        :
         <>
           <div className={buttons}>
             <Button className={button} variant="contained" disabled={loginDisabled} onClick={() => { navigate('/login') }}>Login</Button>
@@ -33,11 +38,13 @@ const Header = ({ loginDisabled, registerDisabled }) => {
 Header.defaultProps = {
   loginDisabled: false,
   registerDisabled: false,
+  homeConfig: false,
 };
 
 Header.propTypes = {
   loginDisabled: PropTypes.bool,
   registerDisabled: PropTypes.bool,
+  homeConfig: PropTypes.bool,
 };
 
 const useStyles = makeStyles({
