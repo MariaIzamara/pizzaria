@@ -1,18 +1,12 @@
 import React from "react"
 import MenuSection from "./MenuSection"
 
-const FoodMenu = () => {
+const FoodMenu = () => (
+  <>
+      <MenuSection type="Promoções"/>
+      <MenuSection type="Comidas"/>
+      <MenuSection type="Bebidas"/>
+  </>
+);
 
-
-
-    return (
-        <>
-            <MenuSection type="Promoções"/>
-            <MenuSection type="Comidas"/>
-            <MenuSection type="Bebidas"/>
-        </>
-    )
-
-}
-
-export default FoodMenu
+export default FoodMenu;
