@@ -5,7 +5,6 @@ import { makeStyles, Button, MenuItem, TextField, CircularProgress } from '@mate
 import { primary, gray100 } from '../../Utils/colors';
 import { requestConfigRegister, requestConfigAddress } from '../../Utils/requestsConfigs';
 import Header from '../../components/Header/Header';
-import { green } from '@material-ui/core/colors';
 
 const districts = [
   {
