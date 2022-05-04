@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useHttp } from '../../hooks';
 import { makeStyles, Button, TextField, CircularProgress } from '@material-ui/core';
+import { gray100, primary } from '../../Utils/colors';
 import { requestConfigLogin } from '../../Utils/requestsConfigs';
 import Header from '../../components/Header/Header';
 
 const Login = () => {
-  const { container, title, form, field, button } = useStyles();
+  const { container, containerLogin, title, form, field, button } = useStyles();
   const navigate = useNavigate();
 
   const { loading, error, data, sendRequest } = useHttp('');
@@ -31,46 +32,65 @@ const Login = () => {
     }));
 
   return (
-    <>
+    <div className={container}>
       <Header loginDisabled={true} />
-      <div className={container}>
+      <div className={containerLogin}>
         {loading ? <CircularProgress /> :
           <>
             <div className={title}>Login</div>
             <div className={form}>
               <TextField className={field} id="text-field-email" variant="outlined" label="E-mail" onChange={event => handleChange(event, 'email')} />
               <TextField className={field} id="text-field-password" variant="outlined" label="Senha" onChange={event => handleChange(event, 'password')} />
-            </div>
-            <div className={button}>
-              <Button variant="contained" onClick={() => login()}>Entrar</Button>
+              <Button className={button} variant="contained" onClick={() => login()}>Entrar</Button>
             </div>
           </>
         }
       </div>
-    </>
+    </div>
   );
 };
 
 const useStyles = makeStyles({
   container: {
+    display: 'flex',
+    flexFlow: 'column',
+    height: '100vh',
+  },
+  containerLogin: {
     padding: 32,
+    flexGrow: 1,
+    flexBasis: 'auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
   title: {
     fontSize: 32,
-    textAlign: 'left',
+    textAlign: 'center',
     marginBottom: 24,
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'flex-end',
+    gap: 24,
   },
   field: {
-    marginBottom: 16,
+    width: 400,
   },
   button: {
-    display: 'flex',
-    justifyContent: 'right',
-  }
+    width: 'fit-content',
+    color: gray100,
+    backgroundColor: primary,
+    padding: '8px 16px',
+    borderRadius: 8,
+
+    '&:hover': {
+      backgroundColor: primary,
+      boxShadow: '0 4px 1em gray',
+    }
+  },
 })
 
 export default Login;
