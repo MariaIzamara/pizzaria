@@ -26,7 +26,7 @@ const Item = (props) => {
         <div>{price}</div>
       </div>
       <div>
-        <Button onClick={addIemHandler}>+</Button>
+        <Button variant="contained" onClick={addIemHandler}>+</Button>
       </div>
     </li>
   );
