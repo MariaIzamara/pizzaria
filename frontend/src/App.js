@@ -7,15 +7,15 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route exact path='/register' element={<Register />} />
-          <Route exact path='/login' element={<Login />} />
-          <Route path='/' element={<Home />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route exact path='/register' element={<Register />} />
+            <Route exact path='/login' element={<Login />} />
+            <Route path='/' element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
   );
 }
 
