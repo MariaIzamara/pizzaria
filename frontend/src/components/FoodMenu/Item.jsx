@@ -3,7 +3,6 @@ import { Button } from '@material-ui/core';
 import CartContext from '../../data/cart-context.js';
 import { useContext } from 'react';
 
-
 const Item = (props) => {
 
   const cartCtx = useContext(CartContext)
@@ -19,16 +18,16 @@ const Item = (props) => {
   }
 
   return (
-    <li>
+    <div>
       <div>
         <h3>{props.name}</h3>
         <div>{props.description}</div>
         <div>{price}</div>
       </div>
       <div>
-        <Button variant="contained" onClick={addIemHandler}>+</Button>
+        <Button>Temp</Button>
       </div>
-    </li>
+    </div>
   );
 };
 
