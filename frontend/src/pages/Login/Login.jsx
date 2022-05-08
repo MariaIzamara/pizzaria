@@ -7,11 +7,10 @@ import { requestConfigLogin } from '../../Utils/requestsConfigs';
 import Header from '../../components/Header/Header';
 
 const Login = () => {
-  const { container, containerLogin, title, form, field, button } = useStyles();
+  const { container, containerLogin, progress, title, form, field, button } = useStyles();
   const navigate = useNavigate();
 
   const { loading, error, data, sendRequest } = useHttp('');
-  // console.log({ loading, error, data });
 
   useEffect(() => {
     if(data && data.token)
@@ -33,9 +32,9 @@ const Login = () => {
 
   return (
     <div className={container}>
-      <Header loginDisabled={true} />
+      <Header loginDisabled={true} cartDisabled={true} />
       <div className={containerLogin}>
-        {loading ? <CircularProgress /> :
+        {loading ? <CircularProgress className={progress} /> :
           <>
             <div className={title}>Login</div>
             <div className={form}>
@@ -64,6 +63,9 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
+  },
+  progress: {
+    color: primary,
   },
   title: {
     fontSize: 32,

@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
-import { primary, gray200 } from '../../Utils/colors'
+import { primary, gray200 } from '../../Utils/colors';
 
-const Header = ({ homeConfig, loginDisabled, registerDisabled }) => {
+const Header = ({ homeConfig, loginDisabled, registerDisabled, cartDisabled, onShowCart }) => {
   const { containerHeader, logo, title, buttons, button } = useStyles();
   const { token } = useParams();
   const navigate = useNavigate();
@@ -19,10 +19,12 @@ const Header = ({ homeConfig, loginDisabled, registerDisabled }) => {
           <div className={title}>Pizzaria</div>
         </div>
       }
+
       {token ?
-        <>
-          <Button variant="contained" onClick={() => { navigate('/') }}>Sair</Button>
-        </>
+        <div className={buttons}>
+          <Button className={button} variant="contained" disabled={cartDisabled} onClick={onShowCart}>Carrinho</Button>
+          <Button className={button} variant="contained" onClick={() => { navigate('/') }}>Sair</Button>
+        </div>
         :
         <>
           <div className={buttons}>
@@ -38,13 +40,17 @@ const Header = ({ homeConfig, loginDisabled, registerDisabled }) => {
 Header.defaultProps = {
   loginDisabled: false,
   registerDisabled: false,
+  cartDisabled: false,
   homeConfig: false,
+  onShowCart: () => {},
 };
 
 Header.propTypes = {
   loginDisabled: PropTypes.bool,
   registerDisabled: PropTypes.bool,
+  cartDisabled: PropTypes.bool,
   homeConfig: PropTypes.bool,
+  onShowCart: PropTypes.func,
 };
 
 const useStyles = makeStyles({
