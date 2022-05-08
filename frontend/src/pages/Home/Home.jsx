@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
 import { primary, gray200 } from '../../Utils/colors';
 import Header from '../../components/Header/Header';
 
 const Home = () => {
   const { container, containerHome, title, subtitle, button } = useStyles();
+  const { token } = useParams();
   const navigate = useNavigate();
+
+  const handleClickMenu = () => token ? navigate(`/menu/${token}`) : navigate('/menu');
   
   return (
-    //<CartProvider>
     <div className={container}>
       <Header homeConfig={true} cartDisabled={true} />
       <div className={containerHome}>
@@ -17,11 +19,10 @@ const Home = () => {
         <div>
           <div className={title}>Pizzaria</div>
           <div className={subtitle}>Bora matar a fome juntos?</div>
-          <Button className={button} variant="contained" onClick={() => navigate('/menu')}>Ver cardápio</Button>
+          <Button className={button} variant="contained" onClick={() => handleClickMenu()}>Ver cardápio</Button>
         </div>
       </div>
     </div>
-    //</CartProvider>
   );
 };
 

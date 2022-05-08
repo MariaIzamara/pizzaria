@@ -1,28 +1,33 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { makeStyles, Button } from '@material-ui/core';
 import CartContext from '../../data/cart-context.js';
 import { useContext } from 'react';
 
-const Item = (props) => {
+const Item = ({id, name, description, price, image}) => {
+  const { containerItem } = useStyles();
 
   const cartCtx = useContext(CartContext)
 
-  const price = `$${props.price.toFixed(2)}`;
+  const formattedPrice = `R$${price.toFixed(2)}`.replace(".", ",");
 
   const addIemHandler = () => {
     cartCtx.addItem({
-      id: props.id,
-      name: props.name,
-      price: props.price
+      id: id,
+      name: name,
+      price: price
     });
   }
 
   return (
-    <div>
+    <div id={id} className={containerItem}>
       <div>
-        <h3>{props.name}</h3>
-        <div>{props.description}</div>
-        <div>{price}</div>
+        <img alt={name} src={`https://drive.google.com/thumbnail?id=${image}`}/>
+      </div>
+      <div>
+        <h3>{name}</h3>
+        <div>{description}</div>
+        <div>{formattedPrice}</div>
       </div>
       <div>
         <Button>Temp</Button>
@@ -30,5 +35,19 @@ const Item = (props) => {
     </div>
   );
 };
+
+Item.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+};
+
+const useStyles = makeStyles({
+  containerItem: {
+
+  },
+});
 
 export default Item;

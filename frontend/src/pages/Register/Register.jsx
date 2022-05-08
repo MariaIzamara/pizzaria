@@ -34,7 +34,6 @@ const Register = () => {
   const navigate = useNavigate();
 
   const { loading, error, data, sendRequest } = useHttp('');
-  // console.log({ loading, error, data });
 
   const [district, setDistrict] = useState(districts[0].value);
   const [personalData, setPersonalData] = useState({

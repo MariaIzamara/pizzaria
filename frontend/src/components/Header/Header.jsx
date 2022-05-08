@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
-import { primary, gray200 } from '../../Utils/colors'
+import { primary, gray200 } from '../../Utils/colors';
 
 const Header = ({ homeConfig, loginDisabled, registerDisabled, cartDisabled, onShowCart }) => {
   const { containerHeader, logo, title, buttons, button } = useStyles();
@@ -21,13 +21,13 @@ const Header = ({ homeConfig, loginDisabled, registerDisabled, cartDisabled, onS
       }
 
       {token ?
-        <>
-          <Button variant="contained" onClick={() => { navigate('/') }}>Sair</Button>
-        </>
+        <div className={buttons}>
+          <Button className={button} variant="contained" disabled={cartDisabled} onClick={onShowCart}>Carrinho</Button>
+          <Button className={button} variant="contained" onClick={() => { navigate('/') }}>Sair</Button>
+        </div>
         :
         <>
           <div className={buttons}>
-            <Button className={button} variant="contained" disabled={cartDisabled} onClick={onShowCart}>Carrinho</Button>
             <Button className={button} variant="contained" disabled={loginDisabled} onClick={() => { navigate('/login') }}>Login</Button>
             <Button className={button} variant="contained" disabled={registerDisabled} onClick={() => { navigate('/register') }}>Cadastrar</Button>
           </div>
