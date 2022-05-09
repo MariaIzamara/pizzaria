@@ -8,7 +8,7 @@ module.exports = {
         nome: "Pizza Baiana",
         descricao: "Essa só não é uma das tradicionais, mas também uma das mais pedidas por aqui. Ela é feita com calabresa moída, ovos, pimenta, cebola e um toque de parmesão.",
         preco: 20.90,
-        imagem: null,
+        imagem: "1Z7v98Z_NCt9JtTCVInplFVHrF5SqO0on",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

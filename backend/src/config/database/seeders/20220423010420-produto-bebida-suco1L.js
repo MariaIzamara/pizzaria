@@ -8,7 +8,7 @@ module.exports = {
         nome: "Suco 1L",
         descricao: "Escolha seu sabor nos comentarios: Uva, Laranja, Goiaba, Pessego, Manga. Por padrão vai Laranja.",
         preco: 11.00,
-        imagem: null,
+        imagem: "1oZlazIQDbZtjobCjPlkBmRIpfSiO6uzr",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

@@ -8,7 +8,7 @@ module.exports = {
         nome: "Refigerante 600ml",
         descricao: "Escolha seu sabor nos comentarios: Coca, Fanta, Guarana Antartica, Sprite. Por padrão vai Guarana Antartica.",
         preco: 8.00,
-        imagem: null,
+        imagem: "107jOCCjVP0g7fERhQGS3htOouAjbPtBZ",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

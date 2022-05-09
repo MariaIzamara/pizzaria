@@ -8,7 +8,7 @@ module.exports = {
         nome: "Pizza Baiana  + Pizza Portuguesa + 2 Refri Lata",
         descricao: "Trocas de sabores não são permitidas",
         preco: 39.90,
-        imagem: null,
+        imagem: "1YtOICyINC2G1RxBKrOpUOFh8B6S2nXbu",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

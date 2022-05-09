@@ -8,7 +8,7 @@ module.exports = {
         nome: "Pizza Brócolis",
         descricao: "Estamos falando aqui de um hino injustiçado! A mídia nos ensinou a não gostar de brócolis. Mas, convenhamos, é delicioso! A pizza é feita com brócolis, bacon crocante e uma leve camada de muçarela ou catupiry.",
         preco: 20.90,
-        imagem: null,
+        imagem: "1Tl3mj8b2uyv9olSNdk476na97IuYywvz",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

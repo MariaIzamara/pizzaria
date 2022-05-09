@@ -8,7 +8,7 @@ module.exports = {
         nome: "Pizza Palmito",
         descricao: "E para aqueles que preferem pizzas mais leves, que tal palmito? Apenas palmito e uma leve camada de queijo.",
         preco: 31.90,
-        imagem: null,
+        imagem: "1W42hfthMBRMoKYTDjB6L93vz5l_QypCT",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

@@ -8,7 +8,7 @@ module.exports = {
         nome: "Pizza Quatro queijos",
         descricao: "Os quatro queijos são mussarela, catupiry, provolone e parmesão. Contudo, algumas unidades utilizam gorgonzola. Informe-se antes de pedir, ok? De qualquer forma, é sempre uma ótima pedida.",
         preco: 31.90,
-        imagem: null,
+        imagem: "1e7VRNHeo8eCgc-FaqrNGa0STrQnjP-dV",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

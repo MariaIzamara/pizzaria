@@ -8,7 +8,7 @@ module.exports = {
         nome: "Levando 2 e pague metade na segunda!",
         descricao: "Isso mesmo! Na segunda você paga 10!!",
         preco: 29.90,
-        imagem: null,
+        imagem: "1BiZCJwVH_hVSnPfeq16hGnbPby70Uyua",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

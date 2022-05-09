@@ -8,7 +8,7 @@ module.exports = {
         nome: "Agua mineral com gás",
         descricao: null,
         preco: 3.00,
-        imagem: null,
+        imagem: "1T44bqsfskYazANb1U9g8cDl703BqFg1h",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

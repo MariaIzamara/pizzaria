@@ -8,7 +8,7 @@ module.exports = {
         nome: "Pizza Napolitana",
         descricao: "Ela parece simples, mas vou te contar o segredo",
         preco: 25.90,
-        imagem: null,
+        imagem: "158vCfTgbR5bqnp0of8ouOAWfZkM9jqHN",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

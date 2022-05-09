@@ -8,7 +8,7 @@ module.exports = {
         nome: "Pizza Calabresa",
         descricao: "Muçarela, calabresa e cebola. Como não amar? Os fãs da carne suína não abrem mão. Esse é um sabor que merece estar na sua mesa de vez em quando.",
         preco: 19.90,
-        imagem: null,
+        imagem: "1xzQllYThDgR1hAkW6QvWad0IVbPydQK7",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

@@ -8,7 +8,7 @@ module.exports = {
         nome: "Pizza Poruguesa + Fanta 2L",
         descricao: null,
         preco: 26.90,
-        imagem: null,
+        imagem: "19E9EKSaihlfhdKl7vv8UYLAjIisG1RM7",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
