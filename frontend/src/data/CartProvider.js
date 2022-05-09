@@ -3,11 +3,21 @@ import { useReducer } from 'react';
 import CartContext from './cart-context.js';
 
 const defaultCartState = {
+  token: "",
+  addressId: 0,
   items: [],
   totalAmount: 0,
 };
 
 const cartReducer = (state, action) => {
+  if (action.type === 'TOKEN') {
+    return ({ ...state, token: action.token })
+  }
+
+  if (action.type === 'ADDRESS') {
+    return ({ ...state, addressId: action.id })
+  }
+
   if (action.type === 'ADD') {
     const updatedTotalAmount =
       state.totalAmount + action.item.price * 1;
@@ -30,6 +40,8 @@ const cartReducer = (state, action) => {
     }
 
     return {
+      token: state.token,
+      addressId: state.addressId,
       items: updatedItems,
       totalAmount: updatedTotalAmount,
     };
@@ -50,13 +62,19 @@ const cartReducer = (state, action) => {
     }
 
     return {
+      token: state.token,
+      addressId: state.addressId,
       items: updatedItems,
       totalAmount: updatedTotalAmount
     };
   }
 
   if (action.type === 'CLEAR') {
-    return defaultCartState;
+    return {
+      ...defaultCartState,
+       token: state.token,
+      addressId: state.addressId,
+    };
   }
 
   return defaultCartState;
@@ -68,6 +86,14 @@ const CartProvider = (props) => {
     defaultCartState
   );
 
+  const addAddressToCartHandler = (id) => {
+    dispatchCartAction({type: 'ADDRESS', id: id});
+  }
+
+  const addTokenToCartHandler = (token) => {
+    dispatchCartAction({ type: 'TOKEN', token: token });
+  };
+
   const addItemToCartHandler = (item) => {
     dispatchCartAction({ type: 'ADD', item: item });
   };
@@ -77,15 +103,19 @@ const CartProvider = (props) => {
   };
 
   const clearCartHandler = () => {
-    dispatchCartAction({type: 'CLEAR'});
+    dispatchCartAction({ type: 'CLEAR' });
   };
 
   const cartCtx = {
+    token: cartState.token,
     items: cartState.items,
+    addressId: cartState.addressId,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
-    clearCart: clearCartHandler
+    clearCart: clearCartHandler,
+    addToken: addTokenToCartHandler,
+    addAdress: addAddressToCartHandler,
   };
 
   return (

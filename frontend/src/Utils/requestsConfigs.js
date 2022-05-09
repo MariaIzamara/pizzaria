@@ -20,13 +20,27 @@ export const requestConfigRegister = data => {
   };
 };
 
+export const requestConfigOrder = data => {
+  const { adressId, items, totalPrice, comment } = data;
+  return {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+    url: `${baseUrl}/pedido/novo`,
+    body: {
+      idEndereco: adressId,
+      produtos: items.toString(),
+      precoFinal: totalPrice,
+      comentario: null,
+    },
+  };
+};
+
 export const requestConfigAddress = (token, data) => {
   const { cep, district, street, number, complement } = data;
   return {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json; charset=UTF-8',
     },
     url: `${baseUrl}/endereco/novo`,
     body: {
@@ -50,6 +64,17 @@ export const requestConfigLogin = data => {
       senha: password,
     },
   };
+};
+
+export const requestConfigAddressId = token => {
+  return {
+  method: 'GET',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json; charset=UTF-8',
+  },
+  url: `${baseUrl}/endereco/get`,
+}
 };
 
 export const requestConfigPromotions = {
