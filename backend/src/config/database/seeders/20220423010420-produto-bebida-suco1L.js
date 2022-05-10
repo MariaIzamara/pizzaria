@@ -6,7 +6,7 @@ module.exports = {
       {
         tipo: "bebida",
         nome: "Suco 1L",
-        descricao: "Escolha seu sabor nos comentarios: Uva, Laranja, Goiaba, Pessego, Manga. Por padrão vai Laranja.",
+        descricao: "Virá um dos seguintes sabores aleatoriamente: Uva, Laranja, Goiaba, Pessego, Manga.",
         preco: 11.00,
         imagem: "1oZlazIQDbZtjobCjPlkBmRIpfSiO6uzr",
         createdAt: new Date(),

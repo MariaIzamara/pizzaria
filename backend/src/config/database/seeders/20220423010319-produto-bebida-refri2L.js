@@ -6,7 +6,7 @@ module.exports = {
       {
         tipo: "bebida",
         nome: "Refrigerante 2L",
-        descricao: "Escolha seu sabor nos comentarios: Coca, Fanta, Guarana Antartica, Sprite. Por padrão vai Guarana Antartica.",
+        descricao: "Virá um dos seguintes sabores aleatoriamente: Coca, Fanta, Guarana Antartica, Sprite.",
         preco: 12.00,
         imagem: "1GOjRWwmDbRGaEm9K0foW8vqPdVXCUHhu",
         createdAt: new Date(),

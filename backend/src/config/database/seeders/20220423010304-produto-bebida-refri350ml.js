@@ -6,7 +6,7 @@ module.exports = {
       {
         tipo: "bebida",
         nome: "Refrigerante Lata 350ml",
-        descricao: "Escolha seu sabor nos comentarios: Coca, Fanta, Guarana Antartica, Sprite. Por padrão vai Guarana Antartica.",
+        descricao: "Virá um dos seguintes sabores aleatoriamente: Coca, Fanta, Guarana Antartica, Sprite.",
         preco: 5.00,
         imagem: "1XFyEfhAVQR7CGqlAaq8YBQCCGMVzCNuH",
         createdAt: new Date(),
