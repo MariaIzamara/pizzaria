@@ -13,35 +13,41 @@ const Login = () => {
 
   const cartCtx = useContext(CartContext);
 
-  const { loading: loadingAddress, error: errorAddress, data: dataAddress, sendRequest: sendRequestAddress } = useHttp('');
-  const { loading, error, data, sendRequest } = useHttp('');
+  const [loginValid, setLoginValid] = useState(false);
+
+  const { loading, error, data, sendRequest } = useHttp({});
 
   useEffect(() => {
     if(data && data.token)
     {
       cartCtx.addToken(data.token);
+      sendRequest(requestConfigAddressId(data.token))
+    }
+    if(data.rows)
+    {
+      cartCtx.addAddress(data.rows[0].id);
       navigate(`/${data.token}`);
-      sendRequestAddress(requestConfigAddressId(cartCtx.token))
     }
   }, [data]);
-
-  useEffect(() => {
-    console.log("id");
-    console.log(dataAddress);
-  }, [dataAddress]);
 
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
   });
 
-  const login = () => sendRequest(requestConfigLogin(loginData));
+  const login = () => {
+    if(loginValid)
+      sendRequest(requestConfigLogin(loginData));
+  }
 
   const handleChange = (event, field) =>
+  {
     setLoginData(currentLoginData => ({
       ...currentLoginData,
       [field]: event.target.value,
     }));
+    setLoginValid(loginData.email.match(/.+@.+/));
+  }
 
   return (
     <div className={container}>
@@ -52,7 +58,8 @@ const Login = () => {
             <div className={title}>Login</div>
             <div className={form}>
               <TextField className={field} id="text-field-email" variant="outlined" label="E-mail" onChange={event => handleChange(event, 'email')} />
-              <TextField className={field} id="text-field-password" variant="outlined" label="Senha" onChange={event => handleChange(event, 'password')} />
+              {loginValid? null : <div>E-mail inválido</div>}
+              <TextField type="password" className={field} id="text-field-password" variant="outlined" label="Senha" onChange={event => handleChange(event, 'password')} />
               <Button className={button} variant="contained" onClick={() => login()}>Entrar</Button>
             </div>
           </>

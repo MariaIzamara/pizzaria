@@ -5,7 +5,7 @@ import CartContext from '../../data/cart-context.js';
 import { useContext } from 'react';
 import { gray200, primary } from '../../Utils/colors.js';
 
-const Item = ({id, name, description, price, image}) => {
+const Item = ({id, name, description, price, image, type}) => {
   const { containerItem, picture, button1, pricestyle } = useStyles();
 
   const cartCtx = useContext(CartContext)
@@ -19,7 +19,15 @@ const Item = ({id, name, description, price, image}) => {
       price: price,
       amount: 1,
     });
-    console.log(cartCtx)
+  }
+  
+  const addHalfIemHandler = () => {
+    cartCtx.addItem({
+      id: id,
+      name: name,
+      price: price,
+      amount: 0.5,
+    });
   }
 
   return (
@@ -33,7 +41,13 @@ const Item = ({id, name, description, price, image}) => {
         <div className={pricestyle}>{formattedPrice}</div>
       </div>
       <div>
-        <Button className={button1} onClick={addIemHandler}>escolher</Button>
+        {type!=='Comidas' ? 
+          <Button className={button1} onClick={addIemHandler}>escolher</Button> 
+        : 
+        <>
+          <Button className={button1} onClick={addIemHandler}>inteira</Button>
+          <Button className={button1} onClick={addHalfIemHandler}>meia</Button>
+        </>}
       </div>
     </div>
   );

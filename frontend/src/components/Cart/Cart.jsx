@@ -9,39 +9,36 @@ import { requestConfigOrder } from "../../Utils/requestsConfigs";
 
 const Cart = (props) => {
 
-  const [isCheckout, setIsCheckout] = useState(false);
+  const [isCheckout, setIsCheckout] = useState("false");
   const cartCtx = useContext(CartContext);
   const { loading, error, data, sendRequest } = useHttp('');
 
   const sendOrder = () => sendRequest(requestConfigOrder(cartCtx));
-
-  // Dummy cartCtx, context not working currently
-  // const cartCtx = {
-  //   items: [
-  //     {
-  //       key: "1",
-  //       name: "batata",
-  //       amount: "1",
-  //       price: 5
-  //     }
-  //   ],
-  //   totalAmount: 5,
-  //   addItem: (item) => { },
-  //   removeItem: (id) => { },
-  //   clearCart: () => { }
-  // }
 
   const cartItemRemoveHandler = (id) => {
     cartCtx.removeItem(id);
   };
 
   const cartItemAddHandler = (item) => {
-    cartCtx.addItem(item);
+    item.id<=13 ? cartCtx.addItem({...item, amount: 0.5}) : cartCtx.addItem({...item, amount: 1});
   };
 
   const orderHandler = () => {
-    cartCtx.clearCart();
-    setIsCheckout(true);
+    let totalItems = 0;
+    let item = {};
+    for (item in cartCtx.items) {
+      totalItems += cartCtx.items[item].amount;
+    }
+    if(totalItems % 1 === 0)
+    {
+      sendOrder();
+      cartCtx.clearCart();
+      setIsCheckout("true");
+    }
+    else 
+    {
+      setIsCheckout("Error");
+    }
   };
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
@@ -67,7 +64,13 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isCheckout ? <h1>Pedido realizado!</h1> : <Button variant="contained" onClick={orderHandler}>Finalizar</Button>}
+      {isCheckout === "True" ? <h1>Pedido realizado!</h1> 
+      : isCheckout === "Error" ?
+        <>
+          <h1>Não é permitida a compra de meia pizza avulsa</h1>
+          <Button variant="contained" onClick={orderHandler}>Finalizar</Button>
+        </> :
+          <Button variant="contained" onClick={orderHandler}>Finalizar</Button>}
     </Modal>
     );
 }

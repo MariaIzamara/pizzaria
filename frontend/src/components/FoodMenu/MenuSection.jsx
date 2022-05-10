@@ -25,7 +25,6 @@ const MenuSection = ({index, value, type}) => {
 
     sendRequest(requestConfig);
     if (error) {
-      console.log(error);
       return;
     }
   }, [type])
@@ -51,6 +50,7 @@ const MenuSection = ({index, value, type}) => {
       description={item.description} 
       price={item.price}
       image={item.image}
+      type={type}
     />
   ));
 

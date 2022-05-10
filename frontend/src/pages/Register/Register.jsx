@@ -64,7 +64,7 @@ const Register = () => {
               <TextField className={fieldCpf} id="text-field-cpf" variant="outlined" label="CPF" onChange={event => handleChange(event, 'cpf')} />
               <TextField className={fieldPhone} id="text-field-phone" variant="outlined" label="Celular" onChange={event => handleChange(event, 'phone')} />
               <TextField className={fieldEmail} id="text-field-email" variant="outlined" label="E-mail" onChange={event => handleChange(event, 'email')} />
-              <TextField className={fieldPassword} id="text-field-password" variant="outlined" label="Senha" onChange={event => handleChange(event, 'password')} />
+              <TextField type="password" className={fieldPassword} id="text-field-password" variant="outlined" label="Senha" onChange={event => handleChange(event, 'password')} />
             </div>
           </fieldset>
           <fieldset className={fieldset}>
