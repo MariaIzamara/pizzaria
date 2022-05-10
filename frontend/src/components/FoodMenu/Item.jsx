@@ -30,7 +30,7 @@ const Item = ({id, name, description, price, image}) => {
         <div>{formattedPrice}</div>
       </div>
       <div>
-        <Button>Temp</Button>
+        <Button>comprar</Button>
       </div>
     </div>
   );
