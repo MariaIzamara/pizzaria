@@ -4,7 +4,7 @@ import { makeStyles, Button } from '@material-ui/core';
 import CartContext from '../../data/cart-context.js';
 import { useContext } from 'react';
 
-const Item = ({id, name, description, price, image}) => {
+const Item = ({id, name, description, price, image, type}) => {
   const { containerItem } = useStyles();
 
   const cartCtx = useContext(CartContext)
@@ -18,7 +18,15 @@ const Item = ({id, name, description, price, image}) => {
       price: price,
       amount: 1,
     });
-    console.log(cartCtx)
+  }
+  
+  const addHalfIemHandler = () => {
+    cartCtx.addItem({
+      id: id,
+      name: name,
+      price: price,
+      amount: 0.5,
+    });
   }
 
   return (
@@ -32,7 +40,13 @@ const Item = ({id, name, description, price, image}) => {
         <div>{formattedPrice}</div>
       </div>
       <div>
-        <Button onClick={addIemHandler}>escolher</Button>
+        {type!=='Comidas' ? 
+          <Button onClick={addIemHandler}>escolher</Button> 
+        : 
+        <>
+          <Button onClick={addIemHandler}>inteira</Button>
+          <Button onClick={addHalfIemHandler}>meia</Button>
+        </>}
       </div>
     </div>
   );

@@ -47,6 +47,7 @@ const useStyles = makeStyles({
     padding: '2px 8px',
     color: 'white',
     backgroundColor: primary,
+    cursor: 'pointer',
   },
   buttonAdd: {
     border: 'none',
@@ -54,6 +55,7 @@ const useStyles = makeStyles({
     padding: '2px 8px',
     color: 'white',
     backgroundColor: primary,
+    cursor: 'pointer',
   },
 });
   

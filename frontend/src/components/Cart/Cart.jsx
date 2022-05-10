@@ -1,18 +1,19 @@
 import { useState, useContext } from "react";
-import { Button, makeStyles } from "@material-ui/core";
+import { Button, makeStyles, CircularProgress } from "@material-ui/core";
 import CartItem from "./CartItem";
 import React from "react"
 import Modal from "../../UI/Modal"
 import { useHttp } from "../../hooks";
 import CartContext from "../../data/cart-context";
 import { requestConfigOrder } from "../../Utils/requestsConfigs";
+import { gray100, primary } from "../../Utils/colors";
 
 const Cart = (props) => {
-  const { containerCart, containerCartItems, finish } = useStyles();
+  const { containerCart, containerCartItems, block, finished, progress, finish, total, button } = useStyles();
 
   const cartCtx = useContext(CartContext);
 
-  const [isCheckout, setIsCheckout] = useState(false);
+  const [isCheckout, setIsCheckout] = useState("false");
   
   const { loading, error, data, sendRequest } = useHttp('');
 
@@ -23,13 +24,25 @@ const Cart = (props) => {
   };
 
   const cartItemAddHandler = (item) => {
-    cartCtx.addItem(item);
+    item.id<=13 ? cartCtx.addItem({...item, amount: 0.5}) : cartCtx.addItem({...item, amount: 1});
   };
 
   const orderHandler = () => {
-    sendOrder();
-    cartCtx.clearCart();
-    setIsCheckout(true);
+    let totalItems = 0;
+    let item = {};
+    for (item in cartCtx.items) {
+      totalItems += cartCtx.items[item].amount;
+    }
+    if(totalItems % 1 === 0)
+    {
+      sendOrder();
+      cartCtx.clearCart();
+      setIsCheckout("true");
+    }
+    else 
+    {
+      setIsCheckout("error");
+    }
   };
 
   const totalAmount = `R$${cartCtx.totalAmount.toFixed(2)}`.replace(".", ",");
@@ -48,47 +61,71 @@ const Cart = (props) => {
       ))}
     </div>
   );
+
   return (
-    <Modal onClose={props.onCloseCart}>
+    <Modal onClose={props.onCloseCart} style={{}}>
       <div className={containerCart}>
         {cartItems}
-        <div className={finish}>
-          <div>{`Total ${totalAmount}`}</div>
-          {isCheckout ? <h1>Pedido realizado!</h1> : <Button variant="contained" onClick={orderHandler}>Finalizar</Button>}
-        </div>
+        {isCheckout === "error" ? <div className={block}>{'Não é permitida a compra de meia pizza avulsa!'.toUpperCase()}</div> : <></>}
+        {isCheckout === "true" ? 
+            loading ? <CircularProgress className={progress} /> : <div className={finished}>Pedido realizado!</div>
+            : 
+            <div className={finish}>
+              <div className={total}>{`Total: ${totalAmount}`}</div>
+              <Button className={button} variant="contained" disabled={cartCtx.items.length === 0} onClick={orderHandler}>Finalizar</Button>
+            </div>
+        }
       </div>
     </Modal>
-    );
+  );
 };
 
 const useStyles = makeStyles({
   containerCart: {
     padding: 32,
   },
+  containerCartItems: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 24,
+  },
+  block: {
+    marginTop: 64,
+    textAlign: 'center',
+    color: 'red',
+  },
+  finished: {
+    fontSize: 30,
+    fontWeight: 500,
+    textAlign: 'center',
+  },
+  progress: {
+    color: primary,
+    margin: 'auto',
+  },
   finish: {
-    
-  }
-  // title: {
-  //   fontSize: 24,
-  // },
-  // buttons: {
-  //   display: 'flex',
-  //   gap: 8,
-  // },
-  // buttonRemove: {
-  //   border: 'none',
-  //   borderRadius: 4,
-  //   padding: '2px 8px',
-  //   color: 'white',
-  //   backgroundColor: primary,
-  // },
-  // buttonAdd: {
-  //   border: 'none',
-  //   borderRadius: 4,
-  //   padding: '2px 8px',
-  //   color: 'white',
-  //   backgroundColor: primary,
-  // },
+    display: 'grid',
+    gridTemplateColumns: '5fr 1fr',
+    marginTop: 64,
+  },
+  total: {
+    fontSize: 30,
+    fontWeight: 500,
+    alignItems: 'center',
+  },
+  button: {
+    width: 'fit-content',
+    marginLeft: 'auto',
+    color: gray100,
+    backgroundColor: primary,
+    padding: '8px 16px',
+    borderRadius: 8,
+
+    '&:hover': {
+      backgroundColor: primary,
+      boxShadow: '0 4px 1em gray',
+    },
+  },
 });
 
 export default Cart
