@@ -4,7 +4,7 @@ import CartContext from './cart-context.js';
 
 const defaultCartState = {
   token: "",
-  addressId: 0,
+  addressId: 1,
   items: [],
   totalAmount: 0,
 };
@@ -115,7 +115,7 @@ const CartProvider = (props) => {
     removeItem: removeItemFromCartHandler,
     clearCart: clearCartHandler,
     addToken: addTokenToCartHandler,
-    addAdress: addAddressToCartHandler,
+    addAddress: addAddressToCartHandler,
   };
 
   return (

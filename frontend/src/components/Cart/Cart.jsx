@@ -15,22 +15,6 @@ const Cart = (props) => {
 
   const sendOrder = () => sendRequest(requestConfigOrder(cartCtx));
 
-  // Dummy cartCtx, context not working currently
-  // const cartCtx = {
-  //   items: [
-  //     {
-  //       key: "1",
-  //       name: "batata",
-  //       amount: "1",
-  //       price: 5
-  //     }
-  //   ],
-  //   totalAmount: 5,
-  //   addItem: (item) => { },
-  //   removeItem: (id) => { },
-  //   clearCart: () => { }
-  // }
-
   const cartItemRemoveHandler = (id) => {
     cartCtx.removeItem(id);
   };
@@ -40,6 +24,7 @@ const Cart = (props) => {
   };
 
   const orderHandler = () => {
+    sendOrder();
     cartCtx.clearCart();
     setIsCheckout(true);
   };

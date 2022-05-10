@@ -13,22 +13,22 @@ const Login = () => {
 
   const cartCtx = useContext(CartContext);
 
-  const { loading: loadingAddress, error: errorAddress, data: dataAddress, sendRequest: sendRequestAddress } = useHttp('');
-  const { loading, error, data, sendRequest } = useHttp('');
+  const { loading, error, data, sendRequest } = useHttp({});
 
   useEffect(() => {
     if(data && data.token)
     {
       cartCtx.addToken(data.token);
+      sendRequest(requestConfigAddressId(data.token))
+    }
+    if(data.rows)
+    {
+      cartCtx.addAddress(data.rows[0].id);
+      console.log(data)
+      console.log(cartCtx)
       navigate(`/${data.token}`);
-      sendRequestAddress(requestConfigAddressId(cartCtx.token))
     }
   }, [data]);
-
-  useEffect(() => {
-    console.log("id");
-    console.log(dataAddress);
-  }, [dataAddress]);
 
   const [loginData, setLoginData] = useState({
     email: '',

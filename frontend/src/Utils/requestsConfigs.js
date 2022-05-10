@@ -21,16 +21,16 @@ export const requestConfigRegister = data => {
 };
 
 export const requestConfigOrder = data => {
-  const { adressId, items, totalPrice, comment } = data;
+  const { addressId, items, totalAmount } = data;
   return {
     method: 'POST',
     headers: { 'Content-Type': 'application/json; charset=UTF-8' },
     url: `${baseUrl}/pedido/novo`,
     body: {
-      idEndereco: adressId,
-      produtos: items.toString(),
-      precoFinal: totalPrice,
-      comentario: null,
+      idEndereco: addressId,
+      produtos: JSON.stringify(items),
+      precoFinal: totalAmount,
+      comentario: "aux",
     },
   };
 };
