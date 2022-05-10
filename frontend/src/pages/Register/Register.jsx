@@ -5,29 +5,9 @@ import { makeStyles, Button, MenuItem, TextField, CircularProgress } from '@mate
 import { primary, gray100 } from '../../Utils/colors';
 import { requestConfigRegister, requestConfigAddress } from '../../Utils/requestsConfigs';
 import Header from '../../components/Header/Header';
+import { bairros } from '../../Utils/bairros';
 
-const districts = [
-  {
-    key: 'NA',
-    value: 'Selecione',
-  },
-  {
-    key: 'NG',
-    value: 'Nova Gameleira',
-  },
-  {
-    key: 'NS',
-    value: 'Nova Suiça',
-  },
-  {
-    key: 'C',
-    value: 'Centro',
-  },
-  {
-    key: 'S',
-    value: 'Savassi',
-  },
-];
+const districts = bairros;
 
 const Register = () => {
   const { container, containerRegister, progress, title, fieldset, legend, form, personal, address, fieldName, fieldPhone, fieldCpf, fieldEmail, fieldPassword, fieldCep, fieldDistrict, fieldStreet, fieldNumber, fieldComplement,submit, button } = useStyles();

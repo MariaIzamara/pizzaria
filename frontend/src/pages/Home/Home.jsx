@@ -17,7 +17,7 @@ const Home = () => {
       <div className={containerHome}>
         <img alt="Logo da pizzaria" src="iconepizzaria.png" height="256" width="256" />
         <div>
-          <div className={title}>Pizzaria</div>
+          <div className={title}>Papa's Pizzaria</div>
           <div className={subtitle}>Bora matar a fome juntos?</div>
           <Button className={button} variant="contained" onClick={() => handleClickMenu()}>Ver cardápio</Button>
         </div>
