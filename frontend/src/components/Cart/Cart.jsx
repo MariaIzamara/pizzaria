@@ -1,28 +1,35 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Button } from "@material-ui/core";
 import CartItem from "./CartItem";
 import React from "react"
 import Modal from "../../UI/Modal"
+import { useHttp } from "../../hooks";
+import CartContext from "../../data/cart-context";
+import { requestConfigOrder } from "../../Utils/requestsConfigs";
 
 const Cart = (props) => {
 
   const [isCheckout, setIsCheckout] = useState(false);
+  const cartCtx = useContext(CartContext);
+  const { loading, error, data, sendRequest } = useHttp('');
+
+  const sendOrder = () => sendRequest(requestConfigOrder(cartCtx));
 
   // Dummy cartCtx, context not working currently
-  const cartCtx = {
-    items: [
-      {
-        key: "1",
-        name: "batata",
-        amount: "1",
-        price: 5
-      }
-    ],
-    totalAmount: 5,
-    addItem: (item) => { },
-    removeItem: (id) => { },
-    clearCart: () => { }
-  }
+  // const cartCtx = {
+  //   items: [
+  //     {
+  //       key: "1",
+  //       name: "batata",
+  //       amount: "1",
+  //       price: 5
+  //     }
+  //   ],
+  //   totalAmount: 5,
+  //   addItem: (item) => { },
+  //   removeItem: (id) => { },
+  //   clearCart: () => { }
+  // }
 
   const cartItemRemoveHandler = (id) => {
     cartCtx.removeItem(id);

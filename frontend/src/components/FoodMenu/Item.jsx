@@ -15,8 +15,10 @@ const Item = ({id, name, description, price, image}) => {
     cartCtx.addItem({
       id: id,
       name: name,
-      price: price
+      price: price,
+      amount: 1,
     });
+    console.log(cartCtx)
   }
 
   return (
@@ -30,7 +32,7 @@ const Item = ({id, name, description, price, image}) => {
         <div>{formattedPrice}</div>
       </div>
       <div>
-        <Button>comprar</Button>
+        <Button onClick={addIemHandler}>escolher</Button>
       </div>
     </div>
   );

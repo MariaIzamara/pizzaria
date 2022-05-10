@@ -24,6 +24,7 @@ const useHttp = (defaultData = {}) => {
 
         const data = await response.json();
         setData(applyData(data));
+        console.log(data)
       } catch (err) {
         setError(err.message || "Something went wrong!");
       }

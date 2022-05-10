@@ -1,21 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useHttp } from '../../hooks';
 import { makeStyles, Button, TextField, CircularProgress } from '@material-ui/core';
 import { gray100, primary } from '../../Utils/colors';
-import { requestConfigLogin } from '../../Utils/requestsConfigs';
+import { requestConfigLogin, requestConfigAddressId } from '../../Utils/requestsConfigs';
+import CartContext from '../../data/cart-context';
 import Header from '../../components/Header/Header';
 
 const Login = () => {
   const { container, containerLogin, progress, title, form, field, button } = useStyles();
   const navigate = useNavigate();
 
+  const cartCtx = useContext(CartContext);
+
+  const { loading: loadingAddress, error: errorAddress, data: dataAddress, sendRequest: sendRequestAddress } = useHttp('');
   const { loading, error, data, sendRequest } = useHttp('');
 
   useEffect(() => {
     if(data && data.token)
+    {
+      cartCtx.addToken(data.token);
       navigate(`/${data.token}`);
+      sendRequestAddress(requestConfigAddressId(cartCtx.token))
+    }
   }, [data]);
+
+  useEffect(() => {
+    console.log("id");
+    console.log(dataAddress);
+  }, [dataAddress]);
 
   const [loginData, setLoginData] = useState({
     email: '',
