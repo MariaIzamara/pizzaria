@@ -15,7 +15,7 @@ const Header = ({ homeConfig, loginDisabled, registerDisabled, cartDisabled, onS
         <div></div>
         :
         <div className={logo} onClick={() => token ? navigate(`/${token}`) : navigate('/') }>
-          <img alt="Logo da pizzaria" src="iconepizzaria.png" height="32" width="32" />
+          <img alt="Logo da pizzaria" src="/iconepizzaria.png" height="32" width="32" />
           <div className={title}>Papa's Pizzaria</div>
         </div>
       }

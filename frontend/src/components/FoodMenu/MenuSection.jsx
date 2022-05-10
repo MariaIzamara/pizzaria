@@ -7,7 +7,7 @@ import Item from "./Item";
 import { requestConfigPromotions, requestConfigFoods, requestConfigDrinks } from "../../Utils/requestsConfigs";
 
 const MenuSection = ({index, value, type}) => {
-  const { containerMenuSection, progress } = useStyles({value, index});
+  const { containerMenuSection, progress, gridAdjust } = useStyles({value, index});
 
   const { loading, error, data, sendRequest } = useHttp('');
 
@@ -56,7 +56,7 @@ const MenuSection = ({index, value, type}) => {
 
   return (
     <div className={containerMenuSection} id={`${type}-${index}`} hidden={value !== index}>
-        {loading ? <CircularProgress className={progress}/> : (value === index && <div>{itemsList}</div>)}
+        {loading ? <CircularProgress className={progress}/> : (value === index && <div className={gridAdjust}>{itemsList}</div>)}
     </div>
   );
 };
@@ -71,6 +71,8 @@ const useStyles = makeStyles({
   containerMenuSection: ({value, index}) => ({
     display: value !== index ? 'none' : 'flex',
     height: '100%',
+    justifyContent: "space-around",
+    backgroundColor: "#f5f5f5",
   }),
   progress: ({value, index}) => ({
     margin: 'auto',
@@ -80,6 +82,14 @@ const useStyles = makeStyles({
       display: value !== index ? 'none' : 'block',
     }
   }),
+  gridAdjust: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gridColumnGap: 32,
+    gridRowGap: 24,
+    padding: 40,
+  }
+  
 });
 
 export default MenuSection;

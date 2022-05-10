@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { makeStyles, Button } from '@material-ui/core';
 import CartContext from '../../data/cart-context.js';
 import { useContext } from 'react';
+import { gray200, primary } from '../../Utils/colors.js';
 
 const Item = ({id, name, description, price, image, type}) => {
-  const { containerItem } = useStyles();
+  const { containerItem, picture, button1, pricestyle } = useStyles();
 
   const cartCtx = useContext(CartContext)
 
@@ -32,20 +33,20 @@ const Item = ({id, name, description, price, image, type}) => {
   return (
     <div id={id} className={containerItem}>
       <div>
-        <img alt={name} src={`https://drive.google.com/thumbnail?id=${image}`}/>
+        <img className={picture} alt={name} src={`https://drive.google.com/thumbnail?id=${image}`}/>
       </div>
       <div>
         <h3>{name}</h3>
         <div>{description}</div>
-        <div>{formattedPrice}</div>
+        <div className={pricestyle}>{formattedPrice}</div>
       </div>
       <div>
         {type!=='Comidas' ? 
-          <Button onClick={addIemHandler}>escolher</Button> 
+          <Button className={button1} onClick={addIemHandler}>escolher</Button> 
         : 
         <>
-          <Button onClick={addIemHandler}>inteira</Button>
-          <Button onClick={addHalfIemHandler}>meia</Button>
+          <Button className={button1} onClick={addIemHandler}>inteira</Button>
+          <Button className={button1} onClick={addHalfIemHandler}>meia</Button>
         </>}
       </div>
     </div>
@@ -62,8 +63,36 @@ Item.propTypes = {
 
 const useStyles = makeStyles({
   containerItem: {
-    
+    textAlign: "center",
+    padding: "10px",
+    border: `solid 1px ${primary}`,
+    width: 'min(1rem,50,10vw)',
+    maxWidth: '500px',
+    borderRadius: 8,
+    marginBottom: 16,
+    marginTop: 16,
   },
+  picture:{
+     border: `solid 1px ${primary}`,
+     padding: 1,
+     opacity: 0.8,
+  },
+  button1:{
+    display: "inline",
+    border: `solid 1px ${primary}`,
+    margin: "3px",
+    '&:hover': {
+      backgroundColor: primary,
+      boxShadow: '0 4px 1em gray',
+      color: '#FFFFFF',
+    }
+  },
+  pricestyle:{
+    color: `${gray200}`,
+    fontSize: 48, 
+    textShadow: `#000000 1px 1px 1px`,
+    marginBottom: 5,
+  }
 });
 
 export default Item;
