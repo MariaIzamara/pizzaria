@@ -24,8 +24,6 @@ const Login = () => {
     if(data.rows)
     {
       cartCtx.addAddress(data.rows[0].id);
-      console.log(data)
-      console.log(cartCtx)
       navigate(`/${data.token}`);
     }
   }, [data]);
