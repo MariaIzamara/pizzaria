@@ -52,6 +52,8 @@ const useStyles = makeStyles({
   containerMenu: {
     flexGrow: 1,
     flexBasis: 'auto',
+    backgroundColor: "#f5f5f5",
+    justifyContent: "center",
   },
   tabs: {
     '& * .MuiTab-textColorInherit.Mui-selected': {

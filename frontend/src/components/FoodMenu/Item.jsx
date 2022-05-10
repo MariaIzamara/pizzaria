@@ -80,6 +80,7 @@ const useStyles = makeStyles({
   button1:{
     display: "inline",
     border: `solid 1px ${primary}`,
+    margin: "3px",
     '&:hover': {
       backgroundColor: primary,
       boxShadow: '0 4px 1em gray',
