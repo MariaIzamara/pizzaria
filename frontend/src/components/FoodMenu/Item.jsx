@@ -32,7 +32,7 @@ const Item = ({id, name, description, price, image}) => {
         <div>{formattedPrice}</div>
       </div>
       <div>
-        <Button onClick={addIemHandler}>Temp</Button>
+        <Button onClick={addIemHandler}>escolher</Button>
       </div>
     </div>
   );
