@@ -10,7 +10,7 @@ import { bairros } from '../../Utils/bairros';
 const districts = bairros;
 
 const Register = () => {
-  const { container, containerRegister, progress, title, fieldset, legend, form, personal, address, fieldName, fieldPhone, fieldCpf, fieldEmail, fieldPassword, fieldCep, fieldDistrict, fieldStreet, fieldNumber, fieldComplement,submit, button } = useStyles();
+  const { container, containerRegister, progress, title, fieldset, legend, form, personal, address, fieldName, fieldPhone, fieldCpf, fieldEmail, fieldPassword, fieldCep, fieldDistrict, fieldStreet, fieldNumber, fieldComplement, submit, button } = useStyles();
   const navigate = useNavigate();
 
   const { loading, error, data, sendRequest } = useHttp('');
@@ -32,7 +32,7 @@ const Register = () => {
   });
 
   useEffect(() => {
-    if(data && data.token) {
+    if (data && data.token) {
       sendRequest(requestConfigAddress(data.token, addressData));
       navigate(`/${data.token}`);
     }
@@ -55,7 +55,7 @@ const Register = () => {
     <div className={container}>
       <Header registerDisabled={true} cartDisabled={true} />
       <div className={containerRegister}>
-        {loading ? <CircularProgress className={progress}/> : <>
+        {loading ? <CircularProgress className={progress} /> : <>
           <div className={title}>Cadastro</div>
           <fieldset className={fieldset}>
             <legend className={legend}>Dados pessoais</legend>
@@ -116,6 +116,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
+    backgroundColor: `${gray100}`,
   },
   progress: {
     margin: 'auto',
