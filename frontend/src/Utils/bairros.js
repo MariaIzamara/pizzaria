@@ -1,5 +1,9 @@
 export const bairros = [
     {
+        key:'SL',
+        value:'Selecione'
+    },
+    {
         key: 'AL',
         value: 'Alto Barroca'
     },
