@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Button } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import CartItem from "./CartItem";
 import React from "react"
 import Modal from "../../UI/Modal"
@@ -8,9 +8,12 @@ import CartContext from "../../data/cart-context";
 import { requestConfigOrder } from "../../Utils/requestsConfigs";
 
 const Cart = (props) => {
+  const { containerCart, containerCartItems, finish } = useStyles();
+
+  const cartCtx = useContext(CartContext);
 
   const [isCheckout, setIsCheckout] = useState(false);
-  const cartCtx = useContext(CartContext);
+  
   const { loading, error, data, sendRequest } = useHttp('');
 
   const sendOrder = () => sendRequest(requestConfigOrder(cartCtx));
@@ -29,10 +32,10 @@ const Cart = (props) => {
     setIsCheckout(true);
   };
 
-  const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
+  const totalAmount = `R$${cartCtx.totalAmount.toFixed(2)}`.replace(".", ",");
 
   const cartItems = (
-    <ul>
+    <div className={containerCartItems}>
       {cartCtx.items.map((item) => (
         <CartItem
           key={item.id}
@@ -43,18 +46,49 @@ const Cart = (props) => {
           onAdd={cartItemAddHandler.bind(null, item)}
         />
       ))}
-    </ul>
+    </div>
   );
   return (
     <Modal onClose={props.onCloseCart}>
-      {cartItems}
-      <div>
-        <span>Total Amount</span>
-        <span>{totalAmount}</span>
+      <div className={containerCart}>
+        {cartItems}
+        <div className={finish}>
+          <div>{`Total ${totalAmount}`}</div>
+          {isCheckout ? <h1>Pedido realizado!</h1> : <Button variant="contained" onClick={orderHandler}>Finalizar</Button>}
+        </div>
       </div>
-      {isCheckout ? <h1>Pedido realizado!</h1> : <Button variant="contained" onClick={orderHandler}>Finalizar</Button>}
     </Modal>
     );
-}
+};
+
+const useStyles = makeStyles({
+  containerCart: {
+    padding: 32,
+  },
+  finish: {
+    
+  }
+  // title: {
+  //   fontSize: 24,
+  // },
+  // buttons: {
+  //   display: 'flex',
+  //   gap: 8,
+  // },
+  // buttonRemove: {
+  //   border: 'none',
+  //   borderRadius: 4,
+  //   padding: '2px 8px',
+  //   color: 'white',
+  //   backgroundColor: primary,
+  // },
+  // buttonAdd: {
+  //   border: 'none',
+  //   borderRadius: 4,
+  //   padding: '2px 8px',
+  //   color: 'white',
+  //   backgroundColor: primary,
+  // },
+});
 
 export default Cart
