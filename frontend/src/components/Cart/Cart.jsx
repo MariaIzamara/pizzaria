@@ -9,13 +9,13 @@ import { requestConfigOrder } from "../../Utils/requestsConfigs";
 import { gray100, primary } from "../../Utils/colors";
 
 const Cart = (props) => {
-  const { containerCart, containerCartItems, block, finished, progress, finish, total, button } = useStyles();
+  const { containerCart, containerCartItems, block, finished, center, progress, finish, total, button, address } = useStyles();
 
   const cartCtx = useContext(CartContext);
 
   const [isCheckout, setIsCheckout] = useState("false");
-  
-  const { loading, error, data, sendRequest } = useHttp('');
+
+  const { loading, sendRequest } = useHttp('');
 
   const sendOrder = () => sendRequest(requestConfigOrder(cartCtx));
 
@@ -24,7 +24,7 @@ const Cart = (props) => {
   };
 
   const cartItemAddHandler = (item) => {
-    item.id<=13 ? cartCtx.addItem({...item, amount: 0.5}) : cartCtx.addItem({...item, amount: 1});
+    item.id <= 13 ? cartCtx.addItem({ ...item, amount: 0.5 }) : cartCtx.addItem({ ...item, amount: 1 });
   };
 
   const orderHandler = () => {
@@ -33,14 +33,12 @@ const Cart = (props) => {
     for (item in cartCtx.items) {
       totalItems += cartCtx.items[item].amount;
     }
-    if(totalItems % 1 === 0)
-    {
+    if (totalItems % 1 === 0) {
       sendOrder();
       cartCtx.clearCart();
       setIsCheckout("true");
     }
-    else 
-    {
+    else {
       setIsCheckout("error");
     }
   };
@@ -63,17 +61,20 @@ const Cart = (props) => {
   );
 
   return (
-    <Modal onClose={props.onCloseCart} style={{}}>
+    <Modal onClose={props.onCloseCart}>
       <div className={containerCart}>
         {cartItems}
         {isCheckout === "error" ? <div className={block}>{'Não é permitida a compra de meia pizza avulsa!'.toUpperCase()}</div> : <></>}
-        {isCheckout === "true" ? 
-            loading ? <CircularProgress className={progress} /> : <div className={finished}>Pedido realizado!</div>
-            : 
+        {isCheckout === "true" ?
+          <div className={center}>{loading ? <CircularProgress className={progress} /> : <div className={finished}>Pedido realizado!</div>}</div>
+          :
+          <>
             <div className={finish}>
               <div className={total}>{`Total: ${totalAmount}`}</div>
               <Button className={button} variant="contained" disabled={cartCtx.items.length === 0} onClick={orderHandler}>Finalizar</Button>
             </div>
+            <div className={address}>{`Endereço para entrega: ${cartCtx.address}`}</div>
+          </>
         }
       </div>
     </Modal>
@@ -94,14 +95,16 @@ const useStyles = makeStyles({
     textAlign: 'center',
     color: 'red',
   },
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   finished: {
     fontSize: 30,
     fontWeight: 500,
-    textAlign: 'center',
   },
   progress: {
     color: primary,
-    margin: 'auto',
   },
   finish: {
     display: 'grid',
@@ -126,6 +129,9 @@ const useStyles = makeStyles({
       boxShadow: '0 4px 1em gray',
     },
   },
+  address: {
+    marginTop: 24,
+  },
 });
 
-export default Cart
+export default Cart;

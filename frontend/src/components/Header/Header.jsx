@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
-import { primary, gray200 } from '../../Utils/colors';
+import { ShoppingCart } from '@material-ui/icons';
+import { primary, gray100 } from '../../Utils/colors';
 
 const Header = ({ homeConfig, loginDisabled, registerDisabled, cartDisabled, onShowCart }) => {
-  const { containerHeader, logo, title, buttons, button } = useStyles();
+  const { containerHeader, logo, title, buttons, cart, button } = useStyles();
   const { token } = useParams();
   const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ const Header = ({ homeConfig, loginDisabled, registerDisabled, cartDisabled, onS
       {homeConfig ?
         <div></div>
         :
-        <div className={logo} onClick={() => token ? navigate(`/${token}`) : navigate('/') }>
+        <div className={logo} onClick={() => token ? navigate(`/${token}`) : navigate('/')}>
           <img alt="Logo da pizzaria" src="/iconepizzaria.png" height="32" width="32" />
           <div className={title}>Papa's Pizzaria</div>
         </div>
@@ -22,7 +23,7 @@ const Header = ({ homeConfig, loginDisabled, registerDisabled, cartDisabled, onS
 
       {token ?
         <div className={buttons}>
-          <Button className={button} variant="contained" disabled={cartDisabled} onClick={onShowCart}>Carrinho</Button>
+          <ShoppingCart className={cart} color={cartDisabled ? 'action' : 'inherit'} onClick={onShowCart} />
           <Button className={button} variant="contained" onClick={() => { navigate('/') }}>Sair</Button>
         </div>
         :
@@ -42,7 +43,7 @@ Header.defaultProps = {
   registerDisabled: false,
   cartDisabled: false,
   homeConfig: false,
-  onShowCart: () => {},
+  onShowCart: () => { },
 };
 
 Header.propTypes = {
@@ -62,7 +63,7 @@ const useStyles = makeStyles({
     gridTemplateColumns: '4fr 1fr',
     padding: 24,
     backgroundColor: primary,
-    color: gray200,
+    color: gray100,
     boxShadow: '0 6px 1em gray',
     fontWeight: 500,
   },
@@ -79,11 +80,16 @@ const useStyles = makeStyles({
   buttons: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    gap: 16,
+    justifyContent: 'end',
+    gap: 24,
+  },
+  cart: {
+    padding: '8px 16px',
+    borderRadius: 8,
+    cursor: 'pointer',
   },
   button: {
-    backgroundColor: `${gray200} !important`,
+    backgroundColor: `${gray100} !important`,
     padding: '8px 16px',
     borderRadius: 8,
   }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 import { primary } from "../../Utils/colors";
 
-const CartItem = ({name, price, amount, onRemove, onAdd}) => {
+const CartItem = ({ name, price, amount, onRemove, onAdd }) => {
   const { containerCartItem, title, buttons, buttonRemove, buttonAdd } = useStyles();
 
   const formattedPrice = `R$${price.toFixed(2)}`.replace(".", ",");
@@ -19,7 +19,7 @@ const CartItem = ({name, price, amount, onRemove, onAdd}) => {
     </div>
   );
 };
-  
+
 CartItem.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   containerCartItem: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 8,
+    gap: 12,
   },
   title: {
     fontSize: 24,
@@ -44,7 +44,7 @@ const useStyles = makeStyles({
   buttonRemove: {
     border: 'none',
     borderRadius: 4,
-    padding: '2px 8px',
+    padding: '4px 8px',
     color: 'white',
     backgroundColor: primary,
     cursor: 'pointer',
@@ -52,11 +52,11 @@ const useStyles = makeStyles({
   buttonAdd: {
     border: 'none',
     borderRadius: 4,
-    padding: '2px 8px',
+    padding: '4px 8px',
     color: 'white',
     backgroundColor: primary,
     cursor: 'pointer',
   },
 });
-  
+
 export default CartItem;

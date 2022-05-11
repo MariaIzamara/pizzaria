@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { makeStyles, Button } from '@material-ui/core';
 import CartContext from '../../data/cart-context.js';
 import { useContext } from 'react';
-import { gray200, primary } from '../../Utils/colors.js';
+import { gray100, primary } from '../../Utils/colors.js';
 
-const Item = ({id, name, description, price, image, type}) => {
-  const { containerItem, picture, button1, pricestyle } = useStyles();
+const Item = ({ id, name, description, price, image, type }) => {
+  const { containerItem, picture, texts, title, pricestyle, buttons, button } = useStyles();
 
   const cartCtx = useContext(CartContext)
 
   const formattedPrice = `R$${price.toFixed(2)}`.replace(".", ",");
 
-  const addIemHandler = () => {
+  const addItemHandler = () => {
     cartCtx.addItem({
       id: id,
       name: name,
@@ -20,8 +20,8 @@ const Item = ({id, name, description, price, image, type}) => {
       amount: 1,
     });
   }
-  
-  const addHalfIemHandler = () => {
+
+  const addHalfItemHandler = () => {
     cartCtx.addItem({
       id: id,
       name: name,
@@ -33,21 +33,22 @@ const Item = ({id, name, description, price, image, type}) => {
   return (
     <div id={id} className={containerItem}>
       <div>
-        <img className={picture} alt={name} src={`https://drive.google.com/thumbnail?id=${image}`}/>
+        <img className={picture} alt={name} src={`https://drive.google.com/thumbnail?id=${image}`} />
       </div>
-      <div>
-        <h3>{name}</h3>
+      <div className={texts}>
+        <div className={title}>{name}</div>
         <div>{description}</div>
         <div className={pricestyle}>{formattedPrice}</div>
       </div>
       <div>
-        {type!=='Comidas' ? 
-          <Button className={button1} onClick={addIemHandler}>escolher</Button> 
-        : 
-        <>
-          <Button className={button1} onClick={addIemHandler}>inteira</Button>
-          <Button className={button1} onClick={addHalfIemHandler}>meia</Button>
-        </>}
+        {type !== 'Comidas' ?
+          <Button className={button} onClick={addItemHandler}>Escolher</Button>
+          :
+          <div className={buttons}>
+            <Button className={button} onClick={addItemHandler}>Inteira</Button>
+            <Button className={button} onClick={addHalfItemHandler}>Meia</Button>
+          </div>
+        }
       </div>
     </div>
   );
@@ -63,36 +64,51 @@ Item.propTypes = {
 
 const useStyles = makeStyles({
   containerItem: {
-    textAlign: "center",
-    padding: "10px",
-    border: `solid 1px ${primary}`,
-    width: 'min(1rem,50,10vw)',
-    maxWidth: '500px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 24,
+    padding: 24,
+    minWidth: 400,
+    maxWidth: 400,
     borderRadius: 8,
-    marginBottom: 16,
-    marginTop: 16,
-  },
-  picture:{
-     border: `solid 1px ${primary}`,
-     padding: 1,
-     opacity: 0.8,
-  },
-  button1:{
-    display: "inline",
+    textAlign: "center",
     border: `solid 1px ${primary}`,
-    margin: "3px",
+  },
+  picture: {
+    borderRadius: 8,
+    padding: 1,
+    opacity: 0.8,
+  },
+  texts: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 500,
+  },
+  pricestyle: {
+    fontSize: 40,
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  button: {
+    width: 'fit-content',
+    color: gray100,
+    backgroundColor: primary,
+    padding: '8px 16px',
+    borderRadius: 8,
+
     '&:hover': {
       backgroundColor: primary,
       boxShadow: '0 4px 1em gray',
-      color: '#FFFFFF',
     }
   },
-  pricestyle:{
-    color: `${gray200}`,
-    fontSize: 48, 
-    textShadow: `#000000 1px 1px 1px`,
-    marginBottom: 5,
-  }
 });
 
 export default Item;

@@ -9,44 +9,43 @@ import Header from '../../components/Header/Header';
 
 const Login = () => {
   const { container, containerLogin, progress, title, form, field, button } = useStyles();
+
   const navigate = useNavigate();
 
   const cartCtx = useContext(CartContext);
 
-  const [loginValid, setLoginValid] = useState(false);
+  const { loading, data, sendRequest } = useHttp({});
 
-  const { loading, error, data, sendRequest } = useHttp({});
-
-  useEffect(() => {
-    if(data && data.token)
-    {
-      cartCtx.addToken(data.token);
-      sendRequest(requestConfigAddressId(data.token))
-    }
-    if(data.rows)
-    {
-      cartCtx.addAddress(data.rows[0].id);
-      navigate(`/${data.token}`);
-    }
-  }, [data]);
+  const [loginInvalid, setLoginInvalid] = useState(false);
 
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
   });
 
+  useEffect(() => {
+    if (data && data.token) {
+      cartCtx.addToken(data.token);
+      sendRequest(requestConfigAddressId(data.token))
+    }
+    if (data.rows) {
+      cartCtx.addAddress(`${data.rows[0].rua}, ${data.rows[0].numero} - ${data.rows[0].bairro}`);
+      cartCtx.addAddressId(data.rows[0].id);
+      navigate(`/${data.token}`);
+    }
+  }, [data]);
+
   const login = () => {
-    if(loginValid)
+    if (!loginInvalid)
       sendRequest(requestConfigLogin(loginData));
   }
 
-  const handleChange = (event, field) =>
-  {
+  const handleChange = (event, field) => {
     setLoginData(currentLoginData => ({
       ...currentLoginData,
       [field]: event.target.value,
     }));
-    setLoginValid(loginData.email.match(/.+@.+/));
+    setLoginInvalid(loginData.email.match(/.+@.+/) === null);
   }
 
   return (
@@ -58,7 +57,7 @@ const Login = () => {
             <div className={title}>Login</div>
             <div className={form}>
               <TextField className={field} id="text-field-email" variant="outlined" label="E-mail" onChange={event => handleChange(event, 'email')} />
-              {loginValid? null : <div>E-mail inválido</div>}
+              {loginInvalid ? <div>E-mail inválido</div> : <></>}
               <TextField type="password" className={field} id="text-field-password" variant="outlined" label="Senha" onChange={event => handleChange(event, 'password')} />
               <Button className={button} variant="contained" onClick={() => login()}>Entrar</Button>
             </div>
@@ -73,7 +72,8 @@ const useStyles = makeStyles({
   container: {
     display: 'flex',
     flexFlow: 'column',
-    height: '100vh',
+    height: '100%',
+    backgroundColor: `${gray100}`,
   },
   containerLogin: {
     padding: 32,

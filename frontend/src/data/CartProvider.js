@@ -4,6 +4,7 @@ import CartContext from './cart-context.js';
 
 const defaultCartState = {
   token: "",
+  address: "",
   addressId: 1,
   items: [],
   totalAmount: 0,
@@ -15,6 +16,10 @@ const cartReducer = (state, action) => {
   }
 
   if (action.type === 'ADDRESS') {
+    return ({ ...state, address: action.address })
+  }
+
+  if (action.type === 'ADDRESSID') {
     return ({ ...state, addressId: action.id })
   }
 
@@ -41,6 +46,7 @@ const cartReducer = (state, action) => {
 
     return {
       token: state.token,
+      address: state.address,
       addressId: state.addressId,
       items: updatedItems,
       totalAmount: updatedTotalAmount,
@@ -52,7 +58,7 @@ const cartReducer = (state, action) => {
     );
     const existingItem = state.items[existingCartItemIndex];
     let step;
-    if(action.id <= 13)
+    if (action.id <= 13)
       step = 0.5;
     else
       step = 1;
@@ -68,6 +74,7 @@ const cartReducer = (state, action) => {
 
     return {
       token: state.token,
+      address: state.address,
       addressId: state.addressId,
       items: updatedItems,
       totalAmount: updatedTotalAmount
@@ -77,7 +84,8 @@ const cartReducer = (state, action) => {
   if (action.type === 'CLEAR') {
     return {
       ...defaultCartState,
-       token: state.token,
+      token: state.token,
+      address: state.address,
       addressId: state.addressId,
     };
   }
@@ -91,9 +99,13 @@ const CartProvider = (props) => {
     defaultCartState
   );
 
-  const addAddressToCartHandler = (id) => {
-    dispatchCartAction({type: 'ADDRESS', id: id});
+  const addAddressToCartHandler = (adress) => {
+    dispatchCartAction({ type: 'ADDRESS', address: adress });
   }
+
+  const addAddressIdToCartHandler = (id) => {
+    dispatchCartAction({ type: 'ADDRESSID', id: id });
+  };
 
   const addTokenToCartHandler = (token) => {
     dispatchCartAction({ type: 'TOKEN', token: token });
@@ -114,6 +126,7 @@ const CartProvider = (props) => {
   const cartCtx = {
     token: cartState.token,
     items: cartState.items,
+    address: cartState.address,
     addressId: cartState.addressId,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
@@ -121,6 +134,7 @@ const CartProvider = (props) => {
     clearCart: clearCartHandler,
     addToken: addTokenToCartHandler,
     addAddress: addAddressToCartHandler,
+    addAddressId: addAddressIdToCartHandler,
   };
 
   return (
