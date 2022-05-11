@@ -72,6 +72,7 @@ const useStyles = makeStyles({
     display: value !== index ? 'none' : 'flex',
     height: '100%',
     justifyContent: "space-around",
+    alignSelf: "center",
     backgroundColor: "#f5f5f5",
   }),
   progress: ({value, index}) => ({
