@@ -1,13 +1,15 @@
 const HelloController = require("./hello.controller")
-const ClienteController = require("./Cliente")
-const EnderecosController = require("./Endereco")
-const ProdutosController = require("./Produto")
-const PedidosController = require("./Pedido")
+const CommonController = require("./common.controller")
+const DoctorController = require("./doctor.controller")
+const ClientController = require("./client.controller")
+const TeacherController = require("./teacher.controller")
+const SecretaryController = require("./secretary.controller")
 
 module.exports = {
     HelloController,
-    ClienteController,
-    EnderecosController,
-    ProdutosController,
-    PedidosController,
+    CommonController,
+    DoctorController,
+    ClientController,
+    TeacherController,
+    SecretaryController,
 }

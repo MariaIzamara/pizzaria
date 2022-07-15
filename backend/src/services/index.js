@@ -1,14 +1,15 @@
 const HelloService = require("./hello.service")
-
-const ClienteService = require("./Cliente")
-const EnderecoService = require("./Endereco")
-const ProdutoService = require("./Produto")
-const PedidosService = require("./Pedido")
+const CommonService = require("./common.service")
+const DoctorService = require("./doctor.service")
+const ClientService = require("./client.service")
+const TeacherService = require("./teacher.service")
+const SecretaryService = require("./secretary.service")
 
 module.exports = {
     HelloService,
-    ClienteService,
-    EnderecoService,
-    ProdutoService,
-    PedidosService
+    CommonService,
+    DoctorService,
+    ClientService,
+    TeacherService,
+    SecretaryService,
 }
